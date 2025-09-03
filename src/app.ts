@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes";
 import todoRoutes from "./routes/todoRoutes";
 import { authenticateToken } from "./middlewares/auth";
+import { connectDB } from "./db/mongodb";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // urlencoded middleware parses the data eg: HTML Forms in the readable format for express framework
 
+connectDB();
 // Sequencial routing: Whichever endpoint and method is matched that route will be triggered.
 
 // Public routes

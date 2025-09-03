@@ -16,3 +16,24 @@
 // 3) JSON format: Which is ideal for JS machines (Browsers, Servers)
 
 // Dynomo DB AWS (NoSQL DB)
+
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://localhost:27017/backend_db";
+
+export async function connectDB() {
+  if (mongoose.connection.readyState === 1) return mongoose.connection;
+  await mongoose.connect(MONGO_URI, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+  } as any);
+  return mongoose.connection;
+}
+
+export async function disconnectDB() {
+  if (mongoose.connection.readyState !== 0) await mongoose.disconnect();
+}
